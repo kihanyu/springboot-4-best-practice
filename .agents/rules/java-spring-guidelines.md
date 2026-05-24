@@ -1,0 +1,71 @@
+---
+trigger: glob
+description: Core technology stack, architectural decisions, and API coding guidelines for the Spring Boot 4.x backend project. Enforces Java 25, REST/GraphQL separation, and modern library choices (Resilience4j, RestClient, JSpecify).
+globs: ["**/*.java","build.gradle","settings.gradle","**/*.yml","**/*.properties"]
+---
+
+# Spring Boot 4.x Best Practice Guidelines
+
+## 프로젝트 기술 스택
+
+- Project : Spring Boot 4.0.x 기반의 JAVA 25 프로젝트 (kotlin 미사용)
+    - Packaging : Jar
+    - Configuration : YAML
+    - Build Tool : Gradle 9.1.0 and after
+- Language : Java 25
+    - JVM : GraalVM CE 25.x
+    - Annotation : Lombok
+- Spring Boot : 4.0.6 and after
+    - Spring Framework : 7.0.10 and after
+- Database : PostgreSQL 18.15 and after
+- Web : Spring Web MVC
+    - ORM : JPA
+    - H2 (Test)
+    - Web Server : Tomcat 11.x
+    - Http Service : @HttpExchange 계열 어노테이션 사용
+    - Spring Rest Client : RestClient 사용
+- Logging : 
+    - SLF4j API
+    - Logback 구현체 사용
+- Observability : 
+    - OpenTelemetry 기반 로깅, 메트릭, 트레이싱
+    - Prometheus 기반 메트릭 수집
+    - LGTM (Loki, Grafana, Tempo, Mimir) 기반의 통합 모니터링
+- API
+    - RESTful API 와 GraphQL 을 함께 사용
+        - 프론트엔드와의 통신은 원칙적으로 GraphQL로 제공
+        - RESTful API는 외부 연동과 파일 업로드, 표준 CRUD 기능을 제공
+    - RESTful API는 버저닝을 위해 @RequestMapping 사용
+    - API 객체 관리
+        - 응답 시 "meta" 객체를 포함하여 응답 구조 사용
+        - 롬복을 사용하여 생성자 기반 의존성 주입
+        - 불변(Immutable) 객체 지향
+    - 외부 API 연동
+        - Spring Retry 대신 Resilience4j 사용
+            - @Retryable, @CircuitBreaker, @Bulkhead, @RateLimiter
+        - RestClient 사용
+    - Json 처리
+        - JavaScript Json 친화적인 API 응답 구조 구현
+        - 잭슨(jackson json writer/reader) 사용
+        - ObjectMapper 대신 JsonMapper 사용
+    - null 처리 : @Nullable 대신 JSpecify 표준 어노테이션 사용
+- API 문서화 및 명세
+    - Restful API : Springdoc OpenAPI(Swagger)
+    - GraphQL : GraphiQL
+- Test : 
+    - JUnit 6 기반의 테스트
+    - @ExtendWith(MockitoExtension.class)를 사용한 단위 테스트
+    - @MockitoBean을 사용한 Mocking 통합 테스트
+    - JaCoCo를 통한 커버리지 측정 및 60% 미만 시 빌드 실패(Fail) 처리
+    - 실제 DB 사용
+    - 도메인별로 구성
+- 인증 및 인가
+    - Authentik은 사내 기존 SAML 서버와 연동(Identity Brokering)하여 최종적으로 애플리케이션에 OIDC/JWT를 내려주는 구조
+    - Frontend는 Authentik을 활용한 SSO 인증
+    - Backend는 Spring Security OAuth2/OIDC Resource Server로 구성
+    - Authentik은 JWT Token을 발급받고 검증
+- 포맷팅 도구
+    - Spotless 플러그인을 활용한 google-java-format 빌드 검증
+- 컨테이너화
+    - Docker 기반의 컨테이너화
+    - Kubernetes 기반의 클러스터링
