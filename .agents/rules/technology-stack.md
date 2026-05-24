@@ -4,9 +4,7 @@ description: Core technology stack, architectural decisions, and API coding guid
 globs: ["**/*.java","build.gradle","settings.gradle","**/*.yml","**/*.properties"]
 ---
 
-# Spring Boot 4.x Best Practice Guidelines
-
-## 프로젝트 기술 스택
+# Technology Stack
 
 - Project : Spring Boot 4.0.x 기반의 JAVA 25 프로젝트 (kotlin 미사용)
     - Packaging : Jar
