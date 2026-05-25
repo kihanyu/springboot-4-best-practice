@@ -30,8 +30,8 @@ replay_pid*
 .kotlin/
 
 # Build files
-build/
+build
 
 # IDE files
-.idea/
+.idea
 .vscode/

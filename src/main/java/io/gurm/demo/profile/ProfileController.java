@@ -1,6 +1,6 @@
 package io.gurm.demo.profile;
 
-import io.gurm.demo.common.CommonResponse;
+import io.gurm.demo.common.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -75,9 +75,9 @@ public class ProfileController {
         )
     })
     @GetMapping("/profile")
-    public ResponseEntity<CommonResponse<ProfileResponse>> getProfileInfo() {
+    public ResponseEntity<BaseResponse<ProfileResponse>> getProfileInfo() {
         ProfileResponse profileInfo = profileService.getProfileInfo();
-        return ResponseEntity.ok(CommonResponse.success(profileInfo, "조회 성공"));
+        return ResponseEntity.ok(BaseResponse.success(profileInfo, "조회 성공"));
     }
 
     // 컨트롤러 레벨 예외 처리: 환경변수 누락 시 스프링 공식 지원 RFC 9457 ProblemDetail 규격으로 반환

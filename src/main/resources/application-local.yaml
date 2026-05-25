@@ -4,8 +4,13 @@ spring:
   docker:
     compose:
       enabled: true
-      lifecycle-management: start_only
+      lifecycle-management: start-and-stop
       host: 192.168.10.92
+      skip:
+        in-tests: false
+  sql:
+    init:
+      mode: always
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,6 +18,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true
 # Observability 설정 (Grafana LGTM 컨테이너가 192.168.10.92에서 작동하는 상황 타겟)
 management:
   endpoints:

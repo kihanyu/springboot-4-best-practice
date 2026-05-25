@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import io.gurm.demo.common.CommonResponse;
+import io.gurm.demo.common.BaseResponse;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,13 +33,13 @@ class ProfileControllerTest {
         given(profileService.getProfileInfo()).willReturn(mockResponse);
 
         // when
-        ResponseEntity<CommonResponse<ProfileResponse>> response = profileController.getProfileInfo();
+        ResponseEntity<BaseResponse<ProfileResponse>> response = profileController.getProfileInfo();
 
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
 
-        CommonResponse<ProfileResponse> body = response.getBody();
+        BaseResponse<ProfileResponse> body = response.getBody();
         assertThat(body.getMeta().isSuccess()).isTrue();
         assertThat(body.getMeta().getCode()).isEqualTo("SUCCESS");
         assertThat(body.getMeta().getMessage()).isEqualTo("조회 성공");

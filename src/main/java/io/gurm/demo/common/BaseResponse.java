@@ -5,21 +5,21 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class CommonResponse<T> {
+public class BaseResponse<T> {
     private final Meta meta;
     private final T data;
 
-    public CommonResponse(boolean success, String code, String message, T data) {
+    public BaseResponse(boolean success, String code, String message, T data) {
         this.meta = new Meta(success, code, message);
         this.data = data;
     }
 
-    public static <T> CommonResponse<T> success(T data, String message) {
-        return new CommonResponse<>(true, "SUCCESS", message, data);
+    public static <T> BaseResponse<T> success(T data, String message) {
+        return new BaseResponse<>(true, "SUCCESS", message, data);
     }
 
-    public static CommonResponse<Object> error(String errorCode, String errorMessage) {
-        return new CommonResponse<>(false, errorCode, errorMessage, null);
+    public static BaseResponse<Object> error(String errorCode, String errorMessage) {
+        return new BaseResponse<>(false, errorCode, errorMessage, null);
     }
 
     @Getter
