@@ -6,8 +6,8 @@ plugins {
 	id 'org.graalvm.buildtools.native' version '0.11.5'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = 'io.gurm'
+version = '0.0.1'
 
 java {
 	toolchain {

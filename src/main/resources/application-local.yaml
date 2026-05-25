@@ -1,0 +1,34 @@
+spring:
+  config:
+    import: "optional:classpath:application-secret-local.yaml"
+  docker:
+    compose:
+      enabled: true
+      lifecycle-management: start_only
+      host: 192.168.10.92
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+# Observability 설정 (Grafana LGTM 컨테이너가 192.168.10.92에서 작동하는 상황 타겟)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  tracing:
+    sampling:
+      probability: 1.0 # 100% 샘플링 (운영 환경에서는 적절히 조절)
+  opentelemetry:
+    metrics:
+      export:
+        otlp:
+          endpoint: http://${spring.docker.compose.host}:4318/v1/metrics
+    tracing:
+      export:
+        otlp:
+          endpoint: http://${spring.docker.compose.host}:4318/v1/traces
+

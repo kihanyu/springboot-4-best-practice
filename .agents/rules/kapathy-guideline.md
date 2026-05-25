@@ -4,6 +4,8 @@ trigger: always_on
 
 # Karpathy behavioral guidelines
 
+**아래 내용은 절대 수정 금지**
+
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.

@@ -3,8 +3,8 @@ services:
     image: 'grafana/otel-lgtm:latest'
     ports:
       - '3000:3000'
-      - '4317'
-      - '4318'
+      - '4317:4317' # gRPC 프로토콜용 포트 고정
+      - '4318:4318' # HTTP 프로토콜용 포트 고정
   postgres:
     image: 'postgres:latest'
     environment:

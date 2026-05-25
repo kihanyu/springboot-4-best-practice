@@ -1,3 +1,19 @@
 spring:
+  profiles:
+    active: local
+  config:
+    import:
+      - optional:application-secret-${spring.profiles.active}.yaml
   application:
-    name: demo
+    name: spring4-bestpractice
+  docker:
+    compose:
+      enabled: false
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
