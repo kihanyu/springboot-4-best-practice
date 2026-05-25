@@ -1,7 +1,10 @@
 package io.gurm.demo.common;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class CommonResponse<T> {
     private final Meta meta;
     private final T data;
@@ -9,14 +12,6 @@ public class CommonResponse<T> {
     public CommonResponse(boolean success, String code, String message, T data) {
         this.meta = new Meta(success, code, message);
         this.data = data;
-    }
-
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public T getData() {
-        return data;
     }
 
     public static <T> CommonResponse<T> success(T data, String message) {
@@ -27,6 +22,7 @@ public class CommonResponse<T> {
         return new CommonResponse<>(false, errorCode, errorMessage, null);
     }
 
+    @Getter
     public static class Meta {
         private final boolean success;
         private final String code;
@@ -38,22 +34,6 @@ public class CommonResponse<T> {
             this.code = code;
             this.message = message;
             this.timestamp = LocalDateTime.now();
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public LocalDateTime getTimestamp() {
-            return timestamp;
         }
     }
 }

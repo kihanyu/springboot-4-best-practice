@@ -9,8 +9,6 @@ spring:
   docker:
     compose:
       enabled: false
-
-server:
   servlet:
     encoding:
       charset: UTF-8
