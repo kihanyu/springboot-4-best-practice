@@ -9,10 +9,16 @@ spring:
   docker:
     compose:
       enabled: false
+
+server:
   servlet:
     encoding:
       charset: UTF-8
       force: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger
 
 logging:
   pattern:

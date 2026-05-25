@@ -31,7 +31,7 @@ public class ProfileController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "조회 성공 (meta 및 data 완벽 분리)",
+            description = "조회 성공",
             content = @Content(
                 mediaType = "application/json",
                 examples = @ExampleObject(
@@ -55,7 +55,7 @@ public class ProfileController {
         ),
         @ApiResponse(
             responseCode = "500",
-            description = "설정 에러 (RFC 9457 Problem Details 스펙 적용)",
+            description = "설정 에러",
             content = @Content(
                 mediaType = "application/json",
                 examples = @ExampleObject(
@@ -87,7 +87,7 @@ public class ProfileController {
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 ex.getMessage()
         );
-        problemDetail.setType(URI.create("https://api.gurm.com/errors/config-error"));
+        problemDetail.setType(URI.create("https://api.gurm.io/errors/config-error"));
         problemDetail.setTitle("Configuration Error");
         problemDetail.setInstance(URI.create("/profile"));
         problemDetail.setProperty("timestamp", LocalDateTime.now()); // 추가적인 메타데이터 확장
