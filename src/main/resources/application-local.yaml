@@ -37,4 +37,3 @@ management:
       export:
         otlp:
           endpoint: http://${spring.docker.compose.host}:4318/v1/traces
-
